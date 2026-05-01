@@ -23,7 +23,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker Image
-        run: docker build -t dsoni26/resume-analyzer .
+        run: docker build -t dimple2003/resume-analyzer .
 
       - name: Push Docker Image
-        run: docker push dsoni26/resume-analyzer
+        run: docker push dimple2003/resume-analyzer
