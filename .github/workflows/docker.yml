@@ -27,3 +27,5 @@ jobs:
 
       - name: Push Docker Image
         run: docker push dimple2003/resume-analyzer
+
+        # updated workflowgit status
