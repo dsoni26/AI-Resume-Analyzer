@@ -58,134 +58,7 @@ def initialize_session_state():
 
 
 def inject_styles():
-    st.markdown(
-        """
-        <style>
-        .stApp {
-            background:
-                radial-gradient(circle at top left, rgba(15, 118, 110, 0.12), transparent 28%),
-                radial-gradient(circle at top right, rgba(37, 99, 235, 0.14), transparent 30%),
-                linear-gradient(180deg, #f8fafc 0%, #edf4ff 100%);
-        }
-        .block-container {
-            max-width: 1180px;
-            padding-top: 1.4rem;
-            padding-bottom: 2rem;
-        }
-        h1, h2, h3 {
-            color: #0f172a;
-        }
-        [data-testid="stSidebar"] {
-            background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
-        }
-        [data-testid="stSidebar"] * {
-            color: #e2e8f0;
-        }
-        .hero-card, .surface-card, .insight-card, .upload-card, .auth-panel, .footer-card {
-            background: rgba(255, 255, 255, 0.92);
-            border: 1px solid rgba(15, 23, 42, 0.08);
-            border-radius: 24px;
-            box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
-        }
-        .hero-card {
-            padding: 1.6rem 1.8rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(140deg, rgba(255,255,255,0.95), rgba(240,249,255,0.95));
-        }
-        .surface-card, .upload-card, .auth-panel, .footer-card {
-            padding: 1.15rem 1.25rem;
-            margin-bottom: 1rem;
-        }
-        .insight-card {
-            padding: 1rem 1.1rem;
-            min-height: 148px;
-        }
-        .eyebrow {
-            color: #0f766e;
-            font-size: 0.78rem;
-            font-weight: 700;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            margin-bottom: 0.4rem;
-        }
-        .hero-title {
-            color: #0f172a;
-            font-size: 2.15rem;
-            font-weight: 800;
-            margin-bottom: 0.4rem;
-        }
-        .hero-copy, .muted-copy {
-            color: #475569;
-            line-height: 1.6;
-            margin: 0;
-        }
-        .tag-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.45rem;
-            margin-top: 0.5rem;
-        }
-        .tag {
-            display: inline-flex;
-            align-items: center;
-            border-radius: 999px;
-            padding: 0.35rem 0.75rem;
-            font-size: 0.85rem;
-            font-weight: 600;
-            border: 1px solid transparent;
-        }
-        .tag-success {
-            color: #166534;
-            background: #dcfce7;
-            border-color: #86efac;
-        }
-        .tag-danger {
-            color: #991b1b;
-            background: #fee2e2;
-            border-color: #fca5a5;
-        }
-        .tag-neutral {
-            color: #0f172a;
-            background: #e2e8f0;
-            border-color: #cbd5e1;
-        }
-        .footer-card {
-            margin-top: 1rem;
-            text-align: center;
-        }
-        div[data-testid="stMetric"] {
-            background: rgba(255,255,255,0.78);
-            border: 1px solid rgba(15, 23, 42, 0.08);
-            padding: 0.85rem 0.95rem;
-            border-radius: 18px;
-        }
-        div[data-testid="stForm"] {
-            background: transparent;
-            border: none;
-            padding: 0;
-            box-shadow: none;
-        }
-        div[data-testid="stTabs"] button {
-            font-weight: 700;
-        }
-        div[data-testid="stExpander"] {
-            border: 1px solid rgba(15, 23, 42, 0.08);
-            border-radius: 16px;
-            background: rgba(255,255,255,0.88);
-        }
-        .status-pill {
-            display: inline-block;
-            padding: 0.35rem 0.7rem;
-            border-radius: 999px;
-            font-size: 0.84rem;
-            font-weight: 700;
-            color: #0f172a;
-            background: #dbeafe;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
+    return
 
 
 def get_connection():
@@ -416,27 +289,21 @@ def reset_analysis_state():
 def render_tag_group(title, items, tone):
     st.markdown(f"**{title}**")
     if not items:
-        st.markdown('<div class="tag-row"><span class="tag tag-neutral">None identified</span></div>', unsafe_allow_html=True)
+        st.caption("None identified")
         return
-    tags = "".join(
-        f'<span class="tag tag-{tone}">{item}</span>'
-        for item in items
-    )
-    st.markdown(f'<div class="tag-row">{tags}</div>', unsafe_allow_html=True)
+    for item in items:
+        if tone == "success":
+            st.success(item, icon="✅")
+        elif tone == "danger":
+            st.warning(item, icon="⚠️")
+        else:
+            st.write(item)
 
 
 def render_footer():
-    st.markdown(
-        """
-        <div class="footer-card">
-            <div class="eyebrow">Portfolio-Ready Build</div>
-            <p class="muted-copy">
-                AI Resume Analyzer with ATS scoring, skill-gap analysis, structured feedback,
-                PDF reporting, Docker deployment, and CI/CD workflow support.
-            </p>
-        </div>
-        """,
-        unsafe_allow_html=True,
+    st.divider()
+    st.caption(
+        "Portfolio-ready build: AI Resume Analyzer with ATS scoring, skill-gap analysis, PDF reporting, Docker deployment, and CI/CD support."
     )
 
 
@@ -444,31 +311,16 @@ def show_auth_page():
     left_col, right_col = st.columns([1.08, 0.92], gap="large")
 
     with left_col:
-        st.markdown(
-            """
-            <div class="hero-card">
-                <div class="eyebrow">Smart Resume Screening</div>
-                <div class="hero-title">Build interview-ready resumes with clearer ATS insights.</div>
-                <p class="hero-copy">
-                    Compare resumes against role requirements, uncover missing skills, and generate
-                    a professional recruiter-friendly analysis report in seconds.
-                </p>
-            </div>
-            """,
-            unsafe_allow_html=True,
+        st.caption("SMART RESUME SCREENING")
+        st.title("Build interview-ready resumes with clearer ATS insights.")
+        st.write(
+            "Compare resumes against role requirements, uncover missing skills, and generate a professional recruiter-friendly analysis report in seconds."
         )
-        st.markdown(
-            """
-            <div class="surface-card">
-                <h3 style="margin-top:0;">What this dashboard includes</h3>
-                <p class="muted-copy">Semantic ATS scoring with Sentence Transformers</p>
-                <p class="muted-copy">Missing skills detection and section-wise resume scoring</p>
-                <p class="muted-copy">Professional downloadable PDF report for portfolio-ready demos</p>
-                <p class="muted-copy">Secure local authentication with hashed passwords in SQLite</p>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
+        st.subheader("What this dashboard includes")
+        st.write("- Semantic ATS scoring with Sentence Transformers")
+        st.write("- Missing skills detection and section-wise resume scoring")
+        st.write("- Professional downloadable PDF report for portfolio-ready demos")
+        st.write("- Secure local authentication with hashed passwords in SQLite")
 
     with right_col:
         st.subheader("Login or Create an Account")
@@ -592,28 +444,15 @@ def render_overview_cards(result):
 def render_strength_section(result):
     col1, col2 = st.columns([1.05, 0.95], gap="large")
     with col1:
-        st.markdown(
-            f"""
-            <div class="surface-card">
-                <div class="eyebrow">Resume Strength Meter</div>
-                <h3 style="margin-top:0;">{result['resume_strength_label']}</h3>
-                <span class="status-pill">{result['dynamic_feedback']}</span>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
+        st.subheader("Resume Strength Meter")
+        st.metric("Strength", result["resume_strength_label"])
+        st.info(result["dynamic_feedback"])
         st.progress(min(max(result["resume_strength_score"] / 100, 0.0), 1.0))
         st.caption(f"Analysis timestamp: {result['analysis_timestamp']}")
         st.caption(f"Last uploaded resume: {st.session_state.resume_filename}")
 
     with col2:
-        st.markdown(
-            """
-            <div class="eyebrow">Role Snapshot</div>
-            <h3 style="margin-top:0;">Job Description Summary</h3>
-            """,
-            unsafe_allow_html=True,
-        )
+        st.subheader("Job Description Summary")
         st.write(result["job_description_summary"])
 
 
@@ -690,31 +529,14 @@ def render_analysis_dashboard(result):
 def show_analyzer():
     render_sidebar()
 
-    st.markdown(
-        """
-        <div class="hero-card">
-            <div class="eyebrow">Dashboard</div>
-            <div class="hero-title">Professional AI resume analysis workspace</div>
-            <p class="hero-copy">
-                Upload a resume, compare it against a target job description, and generate
-                ATS, skill-gap, section-wise, and recruiter-facing report insights.
-            </p>
-        </div>
-        """,
-        unsafe_allow_html=True,
+    st.title("Professional AI Resume Analysis Workspace")
+    st.write(
+        "Upload a resume, compare it against a target job description, and generate ATS, skill-gap, section-wise, and recruiter-facing report insights."
     )
 
     if st.session_state.active_view == "Profile":
-        st.markdown(
-            """
-            <div class="surface-card">
-                <div class="eyebrow">Account Snapshot</div>
-                <h3 style="margin-top:0;">User Profile</h3>
-                <p class="muted-copy">Your authentication and saved analysis history remain stored locally in SQLite.</p>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
+        st.subheader("User Profile")
+        st.write("Your authentication and saved analysis history remain stored locally in SQLite.")
         st.metric("User", st.session_state.username)
         st.metric("Latest Analysis Saved", st.session_state.last_analysis_at or "No saved analysis yet")
         render_footer()
