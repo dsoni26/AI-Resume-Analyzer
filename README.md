@@ -1,106 +1,222 @@
-# Hello
-# AI Resume Analyzer 📝
-The AI Resume Analyzer is an intelligent web-based tool designed to help job seekers evaluate and enhance their resumes by comparing them directly against a specific job description. Leveraging advanced AI models, this tool simulates how Applicant Tracking Systems (ATS) and recruiters assess your resume for relevance, alignment, and suitability for a role. Completely in a single Python file.
+# AI Resume Analyzer 🚀
 
-Watch our [Youtube Tutorial](https://youtu.be/XfoHr9GivCs) for a Demo and detailed explanation of installation steps and code.
-
-## 🔍 What Does This Project Do?
-### 1. Resume Text Extraction
-Users upload their resumes in PDF format, and the system automatically extracts the raw text for further analysis.
-
-### 2. Job Description Input
-The user provides the job description for the position they are targeting. This sets the criteria against which the resume will be evaluated.
-
-### 3. ATS Similarity Score
-Using Sentence Transformers (BERT-based model), the tool calculates a similarity score between the resume and the job description. This score reflects how well the resume matches keywords, context, and requirements typically scanned by ATS software.
-
-### 4. AI-Powered Resume Evaluation
-With the help of Groq's Llama-based LLM, the tool generates a detailed, human-readable evaluation report. The AI analyzes various factors such as skills, experience, and qualifications, assigning a score (out of 5) for each aspect and using emojis (✅, ❌, ⚠️) to quickly highlight strengths and gaps.
-
-### 5. Actionable Feedback
-The AI not only scores your resume but also provides personalized suggestions on how to improve it, helping candidates refine their applications before submission.
-
-### 6. Downloadable Report
-Users can easily download the detailed analysis for reference, making it convenient to track and implement the suggested changes.
-
+An AI-powered Resume Analyzer built using Streamlit, NLP embeddings, and Dockerized cloud deployment workflows. The platform evaluates resumes against job descriptions using semantic similarity techniques and provides ATS scoring, missing skill detection, section-wise insights, and downloadable reports.
 
 ---
 
-### 🎯 **Why Use This Tool?**
+# 🌐 Live Demo
 
-- **Optimize for ATS**: Understand how your resume fares in automated screenings.
-- **Get AI Insights**: Receive professional-quality feedback without hiring a consultant.
-- **Improve Success Rate**: Apply data-driven improvements to increase your chances of getting shortlisted.
+https://ai-resume-analyzer-j8v1.onrender.com/
 
+---
 
-This project is perfect for job seekers who want to make sure their resumes are tailored to specific roles, career coaches looking for efficient feedback tools, or developers seeking to explore AI’s capabilities in HR-tech workflows.
+# 📌 Features
 
+✅ AI-powered ATS score calculation
+✅ Semantic resume-job description matching
+✅ Missing skills detection
+✅ Section-wise resume analysis
+✅ Downloadable analysis reports
+✅ User authentication system
+✅ Secure password hashing
+✅ Resume history storage
+✅ Responsive dashboard UI
+✅ Dockerized deployment
+✅ CI/CD automation with GitHub Actions
+✅ Cloud deployment on Render
 
-# ⚙️ Installation Steps
+---
 
-Follow these steps to set up and run the **AI Resume Analyzer** locally:
+# 🧠 AI & NLP Capabilities
 
+The application uses Sentence Transformers and semantic embeddings to compare resumes with job descriptions intelligently instead of relying only on keyword matching.
 
-Make sure you have Python and Git installed.
+### Implemented AI Features:
 
-### 1️⃣ **Clone the Repository**
+* Semantic similarity scoring
+* ATS compatibility analysis
+* Skill gap detection
+* Resume relevance scoring
+* NLP-based matching system
+
+---
+
+# 🛠️ Tech Stack
+
+## Frontend
+
+* Streamlit
+* HTML/CSS
+
+## Backend
+
+* Python
+* SQLite
+
+## AI / NLP
+
+* SentenceTransformers
+* Hugging Face Transformers
+* Scikit-learn
+
+## DevOps & Deployment
+
+* Docker
+* Docker Compose
+* GitHub Actions
+* Docker Hub
+* Render
+
+## Version Control
+
+* Git
+* GitHub
+
+---
+
+# 🔐 Authentication System
+
+Implemented secure authentication with:
+
+* User registration
+* Login functionality
+* Password hashing
+* Persistent SQLite database storage
+* Session management
+
+---
+
+# 🐳 Docker & Deployment
+
+The project is fully containerized using Docker and supports automated cloud deployment workflows.
+
+### Deployment Workflow
 
 ```bash
-git clone https://github.com/Altoks-AI/AI-Resume-Analyzer.git
-```
-```
-cd FolderName
+VS Code
+↓
+Git Push
+↓
+GitHub Actions
+↓
+Docker Build
+↓
+Docker Hub Push
+↓
+Render Deployment
+↓
+Live Application
 ```
 
-### 2️⃣ Set Up a Virtual Environment
-```
-python -m venv myenv
-```
-```
-./myenv/Scripts/activate
+---
+
+# ⚙️ CI/CD Pipeline
+
+Implemented GitHub Actions workflow for:
+
+* Automated Docker image builds
+* Docker Hub integration
+* Continuous deployment workflow
+* Automated production deployment support
+
+---
+
+# 📷 Application Screenshots
+
+## 🔹 Login & Authentication
+
+![](<screenshot/Screenshot 2026-05-02 175806.png>)
+
+
+## 🔹 ATS Dashboard
+![alt text](<screenshot/Screenshot 2026-05-02 175835 - Copy.png>)
+![alt text](<screenshot/Screenshot 2026-05-02 180526 - Copy (2).png>)
+
+## 🔹 Missing Skills Detection
+
+![alt text](<screenshot/Screenshot 2026-05-02 181148 - Copy.png>)
+![alt text](<screenshot/Screenshot 2026-05-02 181204.png>)
+![alt text](<screenshot/Screenshot 2026-05-02 181252.png>)
+
+## 🔹 Resume Analysis Report
+![alt text](<screenshot/Screenshot 2026-05-02 182321.png>)
+![alt text](<screenshot/Screenshot 2026-05-02 182327.png>)
+---
+
+# 🚀 Installation & Local Setup
+
+## Clone Repository
+
+```bash
+git clone https://github.com/dsoni26/AI-Resume-Analyzer.git
 ```
 
-### 3️⃣ Install Dependencies
-Make sure you have pip updated, then install all required packages:
+## Navigate to Project
+
+```bash
+cd AI-Resume-Analyzer
 ```
+
+## Install Dependencies
+
+```bash
 pip install -r requirements.txt
 ```
 
-### 4️⃣ Set Up Your .env File
-Create a .env file in the root directory and add your Groq API key from [Groq](https://groq.com/) 
+## Run Application
 
-```
-GROQ_API_KEY=your_groq_api_key_here
-```
-
-### 5️⃣ Run the Streamlit App
-Launch the app locally using Streamlit:
-```
+```bash
 streamlit run main.py
 ```
-### 6️⃣ Open in Browser
-Once the app starts, it will automatically open in your default web browser at:
-```
-http://localhost:8501
-```
+
 ---
-✅ Now you’re all set!
-Upload a resume, paste a job description, and let the AI analyze your resume for job-fit and provide suggestions. 
 
-## Possible Changes you may want to make:
+# 🐳 Docker Setup
 
-- Change the prompt in main.py file to get the results in the way you want.
-- Embedding Model is "sentence-transformers/all-mpnet-base-v2" ,Change to the model you desire (Ex: BERT, SBERT,etc)
-- Currently using Groq API and LLM model is "llama-3.3-70b-versatile", Change is model is removed or use other API's like OpenAI-GPT-4o model.
-- Change the Title, Labels and other names and display formats according to your liking.
+## Build Docker Image
 
+```bash
+docker build -t resume-analyzer .
+```
 
-## Contact us :
+## Run Docker Container
 
-- Join our [Discord Community](https://discord.com/invite/qbhACtUB)
-- Our Company Website: [Altoks AI]( https://altoks.vercel.app/)
+```bash
+docker run -p 8501:8501 resume-analyzer
+```
 
-🔗 Follow us everywhere:
-- [Linkedin](https://www.linkedin.com/in/altoks-ai/)
-- [Instagram](https://www.instagram.com/altoks_ai/)
-- [X (Twitter)](https://x.com/Altoks_AI)
+---
+
+# 📈 Future Enhancements
+
+* PostgreSQL integration
+* AWS deployment
+* FastAPI backend
+* React frontend
+* Multi-role recruiter dashboard
+* Resume recommendation engine
+* Interview question generation
+* Analytics dashboard
+
+---
+
+# 💡 Key Learnings
+
+Through this project, I gained hands-on experience in:
+
+* AI/NLP integration
+* Docker containerization
+* CI/CD automation
+* Cloud deployment
+* Authentication systems
+* Database integration
+* Production debugging
+* Full deployment lifecycle management
+
+---
+
+# 👩‍💻 Author
+
+Dimple Soni
+
+GitHub: https://github.com/dsoni26
