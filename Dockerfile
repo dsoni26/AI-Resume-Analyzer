@@ -9,4 +9,4 @@ RUN pip install --no-cache-dir --upgrade pip && \
 
 EXPOSE 8501
 
-CMD ["streamlit", "run", "main.py", "--server.address=0.0.0.0"]
+CMD streamlit run main.py --server.address=0.0.0.0 --server.port=${PORT:-8501}

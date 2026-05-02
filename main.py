@@ -471,7 +471,6 @@ def show_auth_page():
         )
 
     with right_col:
-        st.markdown('<div class="auth-panel">', unsafe_allow_html=True)
         st.subheader("Login or Create an Account")
         login_tab, signup_tab = st.tabs(["Login", "Sign Up"])
 
@@ -517,8 +516,6 @@ def show_auth_page():
                             st.success(message)
                         else:
                             st.error(message)
-        st.markdown("</div>", unsafe_allow_html=True)
-
     render_footer()
 
 
@@ -610,7 +607,6 @@ def render_strength_section(result):
         st.caption(f"Last uploaded resume: {st.session_state.resume_filename}")
 
     with col2:
-        st.markdown('<div class="surface-card">', unsafe_allow_html=True)
         st.markdown(
             """
             <div class="eyebrow">Role Snapshot</div>
@@ -619,7 +615,6 @@ def render_strength_section(result):
             unsafe_allow_html=True,
         )
         st.write(result["job_description_summary"])
-        st.markdown("</div>", unsafe_allow_html=True)
 
 
 def render_analysis_dashboard(result):
@@ -729,7 +724,6 @@ def show_analyzer():
         st.info("No saved analysis found yet. Run your first resume analysis from the Analyzer tab.")
 
     if st.session_state.active_view == "Analyzer":
-        st.markdown('<div class="upload-card">', unsafe_allow_html=True)
         st.subheader("Upload Resume and Target Job Description")
         with st.form("analysis_form"):
             resume_file = st.file_uploader(
@@ -744,8 +738,6 @@ def show_analyzer():
                 height=220,
             )
             submitted = st.form_submit_button("Run Advanced Analysis", use_container_width=True)
-
-        st.markdown("</div>", unsafe_allow_html=True)
 
         if submitted:
             if job_desc and resume_file:
