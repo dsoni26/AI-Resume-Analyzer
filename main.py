@@ -67,6 +67,40 @@ def get_connection():
     return sqlite3.connect(DB_PATH)
 
 
+def get_db_debug_info():
+    try:
+        with get_connection() as conn:
+            user_count = conn.execute("SELECT COUNT(*) FROM users").fetchone()[0]
+            analysis_count = conn.execute("SELECT COUNT(*) FROM analyses").fetchone()[0]
+        return DB_PATH, user_count, analysis_count
+    except Exception:
+        return DB_PATH, None, None
+
+
+def get_db_preview():
+    try:
+        with get_connection() as conn:
+            users = conn.execute(
+                """
+                SELECT id, username, email
+                FROM users
+                ORDER BY id DESC
+                LIMIT 10
+                """
+            ).fetchall()
+            analyses = conn.execute(
+                """
+                SELECT id, user_id, resume_filename, created_at
+                FROM analyses
+                ORDER BY id DESC
+                LIMIT 10
+                """
+            ).fetchall()
+        return users, analyses
+    except Exception:
+        return [], []
+
+
 def init_db():
     with get_connection() as conn:
         conn.execute(
@@ -392,6 +426,12 @@ def render_sidebar():
             st.progress(min(max(result["resume_strength_score"] / 100, 0.0), 1.0))
         else:
             st.info("Run an analysis to unlock the dashboard insights.")
+        db_path, user_count, analysis_count = get_db_debug_info()
+        with st.expander("Database Debug"):
+            st.code(db_path)
+            if user_count is not None and analysis_count is not None:
+                st.write(f"Users stored: {user_count}")
+                st.write(f"Analyses stored: {analysis_count}")
         st.divider()
         if st.button("Logout", use_container_width=True):
             st.session_state.logged_in = False
@@ -541,6 +581,40 @@ def show_analyzer():
         st.write("Your authentication and saved analysis history remain stored locally in SQLite.")
         st.metric("User", st.session_state.username)
         st.metric("Latest Analysis Saved", st.session_state.last_analysis_at or "No saved analysis yet")
+        db_path, user_count, analysis_count = get_db_debug_info()
+        users, analyses = get_db_preview()
+        st.divider()
+        st.subheader("Database Preview")
+        st.code(db_path)
+        if user_count is not None and analysis_count is not None:
+            col1, col2 = st.columns(2)
+            col1.metric("Users in users.db", user_count)
+            col2.metric("Analyses in users.db", analysis_count)
+        with st.expander("Stored Users", expanded=True):
+            if users:
+                st.table(
+                    [
+                        {"id": row[0], "username": row[1], "email": row[2]}
+                        for row in users
+                    ]
+                )
+            else:
+                st.info("No users found in users.db.")
+        with st.expander("Stored Analyses"):
+            if analyses:
+                st.table(
+                    [
+                        {
+                            "id": row[0],
+                            "user_id": row[1],
+                            "resume_filename": row[2] or "",
+                            "created_at": row[3] or "",
+                        }
+                        for row in analyses
+                    ]
+                )
+            else:
+                st.info("No analyses found in users.db.")
         render_footer()
         return
 
