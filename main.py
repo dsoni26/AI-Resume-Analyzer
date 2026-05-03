@@ -32,7 +32,9 @@ st.set_page_config(
 )
 
 api_key = os.getenv("GROQ_API_KEY")
-DB_PATH = "users.db"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+DB_PATH = os.path.join(BASE_DIR, "users.db")
 
 DEFAULT_SESSION_STATE = {
     "form_submitted": False,
